@@ -6,6 +6,38 @@
 </head>
 <body>
 
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once 'classes/sqlite_helper.php';
+
+session_start();
+if (isset($_SESSION['user_id'])){
+    ?>
+    <a href="logout.php">
+        <button type="button">logout</button>
+    </a>
+    <?php
+    echo('<br>');
+    echo("name: ");
+    echo($_SESSION['user_name']);
+    echo('<br>');
+    echo("group: ");
+    echo($_SESSION['user_group']);
+} else {
+    ?>
+    <form method="post" action="login_processing.php">
+        <input type="text" name="user" placeholder="user" required><br>
+        <input type="text" name="password" placeholder="password" required><br>
+        <button type="submit">login</button>
+    </form>
+    <?php
+}
+?>
+<br>
+============================
+<br>
 <form id="orderForm">
     <input type="text" name="client" placeholder="client" required><br>
     term: <input type="datetime-local" name="term" required><br>
@@ -17,11 +49,10 @@
 
 
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-require_once 'sqlite_helper.php';
+echo('<br>');
+echo('<br>');
+
 $db = new SQLiteManager('orders.db');
 
 #$dbdata = $db->selectAll('production');

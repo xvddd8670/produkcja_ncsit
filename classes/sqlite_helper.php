@@ -3,14 +3,17 @@
 class SQLiteManager {
     private $db;
     
+
     public function __construct($dbName) {
         $this->db = new SQLite3($dbName);
     }
     
+
     public function __destruct() {
         $this->db->close();
     }
     
+
     public function createTable($tableName, $columns) {
         $cols = [];
         foreach ($columns as $name => $type) {
@@ -21,6 +24,7 @@ class SQLiteManager {
         $this->db->exec($query);
     }
     
+
     public function insert($tableName, $data) {
         $columns = implode(", ", array_keys($data));
         $placeholders = implode(", ", array_fill(0, count($data), "?"));
@@ -34,6 +38,7 @@ class SQLiteManager {
         $stmt->execute();
     }
     
+
     public function insertMany($tableName, $dataList) {
         if (empty($dataList)) return;
         
@@ -44,6 +49,7 @@ class SQLiteManager {
         $this->db->exec('COMMIT');
     }
     
+
     public function selectAll($tableName) {
         $query = "SELECT * FROM $tableName";
         $result = $this->db->query($query);
@@ -55,6 +61,7 @@ class SQLiteManager {
         return $rows;
     }
     
+
     public function selectWhere($tableName, $conditions) {
         $where = [];
         foreach (array_keys($conditions) as $col) {
@@ -77,6 +84,7 @@ class SQLiteManager {
         return $rows;
     }
     
+
     public function selectWhereOr($tableName, $conditions) {
         if (empty($conditions)) {
             return $this->selectAll($tableName);
@@ -103,6 +111,7 @@ class SQLiteManager {
         return $rows;
     }
     
+
     public function update($tableName, $updates, $conditions) {
         $set = [];
         foreach (array_keys($updates) as $col) {
@@ -129,6 +138,7 @@ class SQLiteManager {
         $stmt->execute();
     }
     
+
     public function delete($tableName, $conditions) {
         $where = [];
         foreach (array_keys($conditions) as $col) {
@@ -145,6 +155,7 @@ class SQLiteManager {
         $stmt->execute();
     }
     
+
     public function deleteMany($tableName, $conditionsList) {
         $this->db->exec('BEGIN');
         foreach ($conditionsList as $conditions) {

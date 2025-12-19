@@ -31,11 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $user = $_POST['user'] ?? '';
 $password = $_POST['password'] ?? '';
+#$password = password_hash($password, PASSWORD_DEFAULT);
 $user_group = $_POST['user_group'] ?? '';
 
 $db->insert('users',
     ['user' => $user,
-    'password' => $password,
+    'password' => password_hash($password, PASSWORD_DEFAULT),
     'user_group' => $user_group
 ]);
 

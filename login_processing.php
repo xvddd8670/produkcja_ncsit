@@ -20,13 +20,13 @@ $password = $_POST['password'] ?? '';
 
 $dbdata = $db->selectWhere('users', ['user' => $user]);
 
-print_r($dbdata[0]['user']);
-/*
-if ($user && password_verify($password, $user['password'])) {
+#print_r($dbdata[0]['user']);
+if (password_verify($password, $dbdata[0]['password'])){
     session_start();
-    $_SESSION['user_id'] = $user['ID'];
-    header('Location: profile.php');
+    $_SESSION['user_id'] = $dbdata[0]['ID'];
+    $_SESSION['user_name'] = $dbdata[0]['user'];
+    $_SESSION['user_group'] = $dbdata[0]['user_group'];
+    echo('login ok');
 }
-*/
 
 ?>
