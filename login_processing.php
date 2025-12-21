@@ -1,5 +1,5 @@
 <?php
-require_once 'sqlite_helper.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/classes/sqlite_helper.php';
 
 #$db = new SQLite3("test.db");
 ini_set('display_errors', 1);
@@ -26,7 +26,8 @@ if (password_verify($password, $dbdata[0]['password'])){
     $_SESSION['user_id'] = $dbdata[0]['ID'];
     $_SESSION['user_name'] = $dbdata[0]['user'];
     $_SESSION['user_group'] = $dbdata[0]['user_group'];
+    $_SESSION['workplace'] = $dbdata[0]['workplace'];
     echo('login ok');
 }
-
+header('Location: ../index.php');
 ?>

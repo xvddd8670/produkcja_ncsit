@@ -1,5 +1,6 @@
 <?php
 require_once 'sqlite_helper.php';
+session_start();
 
 class AuthManager{
     private $db;
@@ -7,7 +8,7 @@ class AuthManager{
 
     public function __construct(){
         try {
-            $this->db = new SQLiteManager('users.db');
+            $this->db = new SQLiteManager('../users.db');
         } catch (Exception $e) {
              "error: " . $e->getMessage();
         }
